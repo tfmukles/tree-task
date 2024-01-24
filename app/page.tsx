@@ -1,30 +1,11 @@
+"use client";
+
 import data from "./data.json";
 
 export default function Home() {
   return (
-    <main className="bg-[#FBFDFF] h-screen flex items-center flex-col">
+    <main className="bg-[#FBFDFF] py-10 flex items-center flex-col">
       <TreeStart trees={data} />
-      {/* {data.map((item) => (
-        <React.Fragment>
-          <button className="border-[#E0E0E0] border px-4 py-5  block min-w-[300px] font-semibold rounded-2xl relative after:absolute after:w-0.5 after:h-1/2 after:top-1/2 after:left-1/2 after:-translate-y-1/2 after:-translate-x-1/2">
-            {item.title}{" "}
-          </button>
-          <div className="relative after:top-0 after:left-1/2 after:-translate-x-1/2 after:absolute after:w-0.5 after:h-full after:bg-red-600 py-10 ">
-            <button className="border-[#E0E0E0] bg-white border text-xl p-3 rounded-lg relative z-10">
-              +
-            </button>
-          </div>
-          {item.child?.map((child) => {
-            return (
-              <React.Fragment>
-                <button className="border-[#E0E0E0] bg-white border text-xl p-3 rounded-lg relative z-10">
-                  {child.title}
-                </button>
-              </React.Fragment>
-            );
-          })}
-        </React.Fragment>
-      ))} */}
     </main>
   );
 }
@@ -35,46 +16,49 @@ type Tree = {
   child?: Tree[];
 };
 
-function TreeStart({ trees }: { trees: Tree[] }) {
+function TreeStart({
+  trees,
+  className,
+}: {
+  trees: Tree[];
+  className?: string;
+}) {
   return (
-    <>
-      {trees.map((tree, i) => {
+    <ul className={className}>
+      {trees.map((tree, index) => {
         if (tree.curve) {
           return (
-            <div className="text-center mt-10" key={i}>
-              <button className="border-[#E0E0E0] bg-white border text-xl p-3 rounded-lg relative z-10">
+            <li className="tree-node" key={index}>
+              <div className="curve-line pb-0"></div>
+              <div className="tree-button p-2 max-w-max min-w-max text-xs mx-auto">
                 {tree.title}
-              </button>
-              <div className="relative after:top-0 after:left-1/2 after:-translate-x-1/2 after:absolute after:w-0.5 after:h-full after:bg-red-600 py-3">
-                <button className="border-[#E0E0E0] bg-white border text-xl p-3 rounded-lg relative z-10">
-                  +
-                </button>
+              </div>
+              <div className="curve-line">
+                <button className="expand-button">+</button>
               </div>
               {tree.child && <TreeStart trees={tree.child} />}
-            </div>
+            </li>
           );
         }
+
         return (
-          <div className="text-center" key={i}>
-            <button className="border-[#E0E0E0] bg-white border text-xl p-3 rounded-lg relative z-10 min-w-[300px]">
-              {tree.title}
-            </button>
-            {trees.length - 1 !== i && !tree.child && (
-              <div className="relative after:top-0 after:left-1/2 after:-translate-x-1/2 after:absolute after:w-0.5 after:h-full after:bg-red-600 py-10 ">
-                <button className="border-[#E0E0E0] bg-white border text-xl p-2 rounded-lg relative z-10">
-                  +
-                </button>
+          <li className="tree-node" key={index}>
+            <div className="tree-button">{tree.title}</div>
+            {trees.length - 1 !== index && !tree.child && (
+              <div className="curve-line">
+                <button className="expand-button">+</button>
               </div>
             )}
 
             {tree.child && (
-              <div className="flex justify-between min-w-[800px]" id="child">
-                <TreeStart trees={tree.child} />
-              </div>
+              <TreeStart
+                trees={tree.child}
+                className="flex justify-between gap-x-4"
+              />
             )}
-          </div>
+          </li>
         );
       })}
-    </>
+    </ul>
   );
 }
