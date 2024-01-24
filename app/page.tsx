@@ -2,7 +2,7 @@ import data from "./data.json";
 
 export default function Home() {
   return (
-    <main className="bg-[#FBFDFF] flex items-center flex-col">
+    <main className="bg-[#FBFDFF] h-screen flex items-center flex-col">
       <TreeStart trees={data} />
       {/* {data.map((item) => (
         <React.Fragment>
@@ -37,11 +37,11 @@ type Tree = {
 
 function TreeStart({ trees }: { trees: Tree[] }) {
   return (
-    <div className="flex flex-col">
+    <>
       {trees.map((tree, i) => {
         if (tree.curve) {
           return (
-            <div className="text-center">
+            <div className="text-center mt-10" key={i}>
               <button className="border-[#E0E0E0] bg-white border text-xl p-3 rounded-lg relative z-10">
                 {tree.title}
               </button>
@@ -55,8 +55,8 @@ function TreeStart({ trees }: { trees: Tree[] }) {
           );
         }
         return (
-          <div className="text-center">
-            <button className="border-[#E0E0E0] bg-white border text-xl p-3 rounded-lg relative z-10">
+          <div className="text-center" key={i}>
+            <button className="border-[#E0E0E0] bg-white border text-xl p-3 rounded-lg relative z-10 min-w-[300px]">
               {tree.title}
             </button>
             {trees.length - 1 !== i && !tree.child && (
@@ -67,10 +67,14 @@ function TreeStart({ trees }: { trees: Tree[] }) {
               </div>
             )}
 
-            {tree.child && <TreeStart trees={tree.child} />}
+            {tree.child && (
+              <div className="flex justify-between min-w-[800px]" id="child">
+                <TreeStart trees={tree.child} />
+              </div>
+            )}
           </div>
         );
       })}
-    </div>
+    </>
   );
 }
