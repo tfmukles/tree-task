@@ -3,52 +3,104 @@
 @tailwind utilities;
 
 .wave {
-  width: 800px;
-  height: 200px;
-  position: relative;
+    width: 800px;
+    height: 200px;
+    position: relative;
 }
 
 .wave:after {
-  content: "";
-  width: 50%;
-  position: absolute;
-  height: 200px;
-  display: block;
-  border-bottom: 19px solid black;
-  border-radius: 50%;
-  left: 50%;
+    content: "";
+    width: 50%;
+    position: absolute;
+    height: 200px;
+    display: block;
+    border-bottom: 19px solid black;
+    border-radius: 50%;
+    left: 50%;
 }
 
 .wave:before {
-  content: "";
-  width: 50%;
-  position: absolute;
-  height: 200px;
-  display: block;
-  border-top: 19px solid black;
-  border-radius: 50%;
+    content: "";
+    width: 50%;
+    position: absolute;
+    height: 200px;
+    display: block;
+    border-top: 19px solid black;
+    border-radius: 50%;
 }
 
 @layer components {
-  .tree {
-    @apply text-center;
-  }
-  .tree-button {
-    @apply border-[#E0E0E0] bg-white border py-3 min-w-[250px] px-6 rounded-lg relative z-10 font-semibold;
-  }
-  .expand-button {
-    @apply border-[#E0E0E0] bg-white border text-xl p-2 rounded-lg relative z-10;
-  }
+    .tree {
+        @apply text-center;
+    }
 
-  .tree-node {
-    @apply text-center relative;
-  }
+    .tree-button {
+        max-width: 400px;
+        margin: 0 auto;
+        @apply border-[#E0E0E0] bg-white border py-3 min-w-[300px] px-6 rounded-lg relative z-10 font-semibold;
+    }
 
-  .curve-line {
-    @apply relative after:top-0 after:left-1/2 after:-translate-x-1/2 after:absolute after:w-0.5 after:h-full after:bg-red-600 py-10;
-  }
+    .expand-button {
+        width: 60px;
+        @apply border-[#E0E0E0] bg-white border text-xl p-2 rounded-lg relative z-10;
+    }
 
-  .child-nodes {
-    @apply relative flex;
-  }
+    .tree-node {
+        @apply text-center relative;
+        max-width: 100%;
+        margin: 0 auto;
+
+        &.sub-tree {
+            margin: 0;
+        }
+    }
+
+    .left-sub-node {
+        margin-left: 60%;
+    }
+
+    .right-sub-node {
+        margin-right: 60%;
+    }
+
+    .left-plus-icon {
+        margin-left: 26%;
+        height: 115px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .right-plus-icon {
+        margin-right: 26%;
+        height: 115px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .child-curve-line {
+            left: 20%;
+            right: auto;
+        }
+    }
+
+    .child-curve-line {
+        position: absolute;
+        right: 20%;
+        z-index: 11;
+        height: 117px;
+    }
+
+    .expand-button {
+        z-index: 111;
+        position: relative;
+    }
+
+    .curve-line {
+        @apply relative after:top-0 after:left-1/2 after:-translate-x-1/2 after:absolute after:w-0.5 after:h-full after:bg-red-600 py-10;
+    }
+
+    .child-nodes {
+        @apply relative flex;
+    }
 }

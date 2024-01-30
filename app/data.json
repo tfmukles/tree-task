@@ -13,7 +13,7 @@
         "curve": true,
         "child": [
           {
-            "title": "Step 1"
+            "title": "Sub Step 1"
           }
         ]
       },
@@ -22,7 +22,7 @@
         "curve": true,
         "child": [
           {
-            "title": "Step 1"
+            "title": "Sub Step 2"
           }
         ]
       }
